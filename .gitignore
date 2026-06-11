@@ -1,0 +1,12 @@
+.venv/
+.python/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.env
+.idea/
+.vscode/
+logs/
+uvicorn.out.log
+uvicorn.err.log
