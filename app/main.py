@@ -12,6 +12,29 @@ async def root() -> dict[str, str]:
     return {"message": "API funcionando!"}
 
 
-@app.get("/health", tags=["Geral"])
-async def health_check() -> dict[str, str]:
-    return {"status": "ok"}
+@app.get("/users")
+def list_users():
+    db: Session = SessionLocal()
+
+    users = db.query(User).all()
+
+    return users
+
+
+@app.post("/users")
+def create_user(nome: str, numero: str = ""):
+    db: Session = SessionLocal()
+
+    user = User(name=nome, numero=numero)
+
+    db.add(user)
+
+    db.commit()
+
+    db.refresh(user)
+
+    return {
+        "id": user.id,
+        "name": user.name,
+        "numero": user.numero
+    }
